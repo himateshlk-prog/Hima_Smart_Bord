@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#181A20"
+    android:orientation="vertical"
+    android:padding="6dp">
+
+    <TextView
+        android:id="@+id/tvPreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222631"
+        android:padding="8dp"
+        android:text="Hima Smart Board • Singlish -> සිංහල"
+        android:textColor="#00E5FF"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnK"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="#2C313C"
+            android:text="k"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnA"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="#2C313C"
+            android:text="a"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnM"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="#2C313C"
+            android:text="m"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnDel"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="#5C2B29"
+            android:text="⌫"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSpace"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="2dp"
+            android:layout_weight="3"
+            android:backgroundTint="#2C313C"
+            android:text="SPACE"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnEnter"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="#007ACC"
+            android:text="↵"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</LinearLayout>
