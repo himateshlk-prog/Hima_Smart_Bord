@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#1E1E2E"
-    android:orientation="vertical"
-    android:padding="8dp">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <application
+        android:allowBackup="true"
+        android:label="Hima Smart Board"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <service
+            android:name=".SinhalaKeyboardService"
+            android:exported="true"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
+        </service>
+
+    </application>
+
+</manifest>
     <TextView
         android:id="@+id/tvPreview"
         android:layout_width="match_parent"
