@@ -8,7 +8,6 @@
     android:paddingTop="6dp"
     android:paddingBottom="8dp">
 
-    <!-- Top Quick Action Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +71,6 @@
             android:textSize="13sp" />
     </LinearLayout>
 
-    <!-- Copied Clipboard Box -->
     <LinearLayout
         android:id="@+id/clipBox"
         android:layout_width="match_parent"
@@ -107,7 +105,6 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <!-- Sinhala Pillam Strip -->
     <HorizontalScrollView
         android:id="@+id/sinhalaStrip"
         android:layout_width="match_parent"
@@ -136,7 +133,6 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- Emoji Strip -->
     <HorizontalScrollView
         android:id="@+id/emojiStrip"
         android:layout_width="match_parent"
@@ -152,7 +148,6 @@
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
-    <!-- Row 1: Q W E R T Y U I O P -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -170,7 +165,6 @@
         <Button android:id="@+id/btnP" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="P" android:textColor="#FFFFFF" android:textSize="19sp" />
     </LinearLayout>
 
-    <!-- Row 2: A S D F G H J K L -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -187,7 +181,6 @@
         <Button android:id="@+id/btnL" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="L" android:textColor="#FFFFFF" android:textSize="19sp" />
     </LinearLayout>
 
-    <!-- Row 3: SHIFT Z X C V B N M DEL -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -204,7 +197,6 @@
         <Button android:id="@+id/btnDel" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1.35" android:background="@drawable/key_bg" android:padding="0dp" android:text="⌫" android:textColor="#FFFFFF" android:textSize="18sp" />
     </LinearLayout>
 
-    <!-- Row 4: 123  GLOBE  ,  PILL-SPACE  .  ENTER -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
