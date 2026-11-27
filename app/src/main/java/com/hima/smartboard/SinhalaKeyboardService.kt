@@ -2,12 +2,14 @@ package com.hima.smartboard
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.graphics.Color
 import android.inputmethodservice.InputMethodService
 import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
@@ -23,25 +25,51 @@ class SinhalaKeyboardService : InputMethodService() {
     private var sinhalaStrip: HorizontalScrollView? = null
     private var emojiStrip: HorizontalScrollView? = null
     private var emojiContainer: LinearLayout? = null
+    private var spaceBtn: Button? = null
 
     private var isEnglishMode = false
+    private var isNumberMode = false
+    private var isShifted = false
     private val repeatHandler = Handler(Looper.getMainLooper())
     private var isDeletingHeld = false
 
+    private val keyIds = listOf(
+        R.id.btnQ, R.id.btnW, R.id.btnE, R.id.btnR, R.id.btnT,
+        R.id.btnY, R.id.btnU, R.id.btnI, R.id.btnO, R.id.btnP,
+        R.id.btnA, R.id.btnS, R.id.btnD, R.id.btnF, R.id.btnG,
+        R.id.btnH, R.id.btnJ, R.id.btnK, R.id.btnL,
+        R.id.btnZ, R.id.btnX, R.id.btnC, R.id.btnV, R.id.btnB,
+        R.id.btnN, R.id.btnM
+    )
+
+    private val letterLabels = mapOf(
+        R.id.btnQ to "q", R.id.btnW to "w", R.id.btnE to "e", R.id.btnR to "r",
+        R.id.btnT to "t", R.id.btnY to "y", R.id.btnU to "u", R.id.btnI to "i",
+        R.id.btnO to "o", R.id.btnP to "p", R.id.btnA to "a", R.id.btnS to "s",
+        R.id.btnD to "d", R.id.btnF to "f", R.id.btnG to "g", R.id.btnH to "h",
+        R.id.btnJ to "j", R.id.btnK to "k", R.id.btnL to "l", R.id.btnZ to "z",
+        R.id.btnX to "x", R.id.btnC to "c", R.id.btnV to "v", R.id.btnB to "b",
+        R.id.btnN to "n", R.id.btnM to "m"
+    )
+
+    private val numberLabels = mapOf(
+        R.id.btnQ to "1", R.id.btnW to "2", R.id.btnE to "3", R.id.btnR to "4",
+        R.id.btnT to "5", R.id.btnY to "6", R.id.btnU to "7", R.id.btnI to "8",
+        R.id.btnO to "9", R.id.btnP to "0", R.id.btnA to "@", R.id.btnS to "#",
+        R.id.btnD to "$", R.id.btnF to "%", R.id.btnG to "&", R.id.btnH to "-",
+        R.id.btnJ to "+", R.id.btnK to "(", R.id.btnL to ")", R.id.btnZ to "*",
+        R.id.btnX to "\"", R.id.btnC to "'", R.id.btnV to ":", R.id.btnB to ";",
+        R.id.btnN to "!", R.id.btnM to "?"
+    )
+
     private val emojiList = listOf(
-        "😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "😉",
-        "😊", "😇", "🥰", "😍", "🤩", "😘", "😗", "😋", "😛", "😜",
-        "🤪", "🤗", "🤭", "🤫", "🤔", "😐", "😑", "😶", "😏", "😒",
-        "🙄", "😬", "😔", "😪", "🤤", "😴", "😷", "🤒", "🤕", "🤢",
-        "🤮", "🥵", "🥶", "🥳", "😎", "🤓", "😕", "😟", "🙁", "☹️",
-        "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😢",
-        "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤",
-        "😡", "😠", "🤬", "👍", "👎", "👏", "🙌", "👐", "🤝", "🙏",
-        "✌️", "🤞", "🤟", "🤘", "👌", "🤏", "👈", "👉", "👆", "👇",
-        "☝️", "✋", "🤚", "🖐️", "🖖", "👋", "🤙", "💪", "❤️", "🧡",
-        "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❣️", "💕",
-        "💞", "💓", "💗", "💖", "💘", "💝", "🔥", "✨", "🌟", "💫",
-        "🎉", "🎊", "🎂", "🎁", "📸", "🎥", "🎶", "🎵", "💯", "✅"
+        "✨", "😢", "😍", "🥀", "🤨", "💕", "😁", "👤", "😡", "😂",
+        "🤣", "😊", "🥰", "🤩", "😘", "😜", "🤗", "🤔", "🙄", "😔",
+        "😭", "🥺", "😤", "🤬", "😎", "🤓", "🥳", "👍", "👎", "👏",
+        "🙌", "🤝", "🙏", "✌️", "🤞", "👌", "👈", "👉", "👆", "👇",
+        "👋", "💪", "❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍",
+        "💔", "❣️", "💖", "💘", "🔥", "🌟", "💫", "🎉", "🎊", "🎂",
+        "🎁", "📸", "🎥", "🎶", "🎵", "💯", "✅", "⚡", "🌙", "☀️"
     )
 
     private val deleteRepeatRunnable = object : Runnable {
@@ -61,35 +89,61 @@ class SinhalaKeyboardService : InputMethodService() {
         sinhalaStrip = view.findViewById(R.id.sinhalaStrip)
         emojiStrip = view.findViewById(R.id.emojiStrip)
         emojiContainer = view.findViewById(R.id.emojiContainer)
+        spaceBtn = view.findViewById(R.id.btnSpace)
 
         setupEmojis()
 
-        val keyMap = mapOf(
-            R.id.btnQ to "q", R.id.btnW to "w", R.id.btnE to "e", R.id.btnR to "r",
-            R.id.btnT to "t", R.id.btnY to "y", R.id.btnU to "u", R.id.btnI to "i",
-            R.id.btnO to "o", R.id.btnP to "p", R.id.btnA to "a", R.id.btnS to "s",
-            R.id.btnD to "d", R.id.btnF to "f", R.id.btnG to "g", R.id.btnH to "h",
-            R.id.btnJ to "j", R.id.btnK to "k", R.id.btnL to "l", R.id.btnZ to "z",
-            R.id.btnX to "x", R.id.btnC to "c", R.id.btnV to "v", R.id.btnB to "b",
-            R.id.btnN to "n", R.id.btnM to "m"
-        )
-
-        for ((id, letter) in keyMap) {
+        for (id in keyIds) {
             view.findViewById<Button?>(id)?.setOnClickListener {
-                if (isEnglishMode) {
-                    currentInputConnection?.commitText(letter, 1)
+                val outChar = getOutputForKey(id)
+                if (isNumberMode) {
+                    commitSinhala()
+                    currentInputConnection?.commitText(outChar, 1)
+                } else if (isEnglishMode) {
+                    currentInputConnection?.commitText(outChar, 1)
+                    if (isShifted) {
+                        isShifted = false
+                        refreshKeyLabels(view)
+                    }
                 } else {
-                    appendChar(letter)
+                    appendChar(outChar)
                 }
             }
         }
 
-        modeBtn?.setOnClickListener {
+        view.findViewById<Button?>(R.id.btnShift)?.setOnClickListener {
+            if (!isNumberMode) {
+                isShifted = !isShifted
+                refreshKeyLabels(view)
+            }
+        }
+
+        view.findViewById<Button?>(R.id.btnSym)?.setOnClickListener {
+            isNumberMode = !isNumberMode
+            view.findViewById<Button?>(R.id.btnSym)?.text = if (isNumberMode) "ABC" else "123"
+            refreshKeyLabels(view)
+        }
+
+        val toggleLanguage = {
             if (!isEnglishMode) {
                 commitSinhala()
             }
             isEnglishMode = !isEnglishMode
+            isNumberMode = false
+            view.findViewById<Button?>(R.id.btnSym)?.text = "123"
+            refreshKeyLabels(view)
             updateModeUi()
+        }
+        modeBtn?.setOnClickListener { toggleLanguage() }
+        view.findViewById<Button?>(R.id.btnGlobe)?.setOnClickListener { toggleLanguage() }
+
+        view.findViewById<Button?>(R.id.btnPillamToggle)?.setOnClickListener {
+            sinhalaStrip?.visibility =
+                if (sinhalaStrip?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+        }
+
+        view.findViewById<Button?>(R.id.btnClipToggle)?.setOnClickListener {
+            refreshClipboardBox(forceToggle = true)
         }
 
         val pillamMap = mapOf(
@@ -114,9 +168,8 @@ class SinhalaKeyboardService : InputMethodService() {
         }
 
         view.findViewById<Button?>(R.id.btnEmoji)?.setOnClickListener {
-            val showingEmoji = emojiStrip?.visibility == View.VISIBLE
-            emojiStrip?.visibility = if (showingEmoji) View.GONE else View.VISIBLE
-            sinhalaStrip?.visibility = if (!showingEmoji || isEnglishMode) View.GONE else View.VISIBLE
+            emojiStrip?.visibility = View.VISIBLE
+            emojiStrip?.smoothScrollTo(0, 0)
         }
 
         view.findViewById<Button?>(R.id.btnPasteClip)?.setOnClickListener {
@@ -145,7 +198,17 @@ class SinhalaKeyboardService : InputMethodService() {
             }
         }
 
-        view.findViewById<Button?>(R.id.btnSpace)?.setOnClickListener {
+        view.findViewById<Button?>(R.id.btnComma)?.setOnClickListener {
+            commitSinhala()
+            currentInputConnection?.commitText(",", 1)
+        }
+
+        view.findViewById<Button?>(R.id.btnDot)?.setOnClickListener {
+            commitSinhala()
+            currentInputConnection?.commitText(".", 1)
+        }
+
+        spaceBtn?.setOnClickListener {
             commitSinhala()
             currentInputConnection?.commitText(" ", 1)
         }
@@ -155,9 +218,30 @@ class SinhalaKeyboardService : InputMethodService() {
             currentInputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
         }
 
+        refreshKeyLabels(view)
         updateModeUi()
-        refreshClipboardBox()
+        refreshClipboardBox(forceToggle = false)
         return view
+    }
+
+    private fun getOutputForKey(id: Int): String {
+        if (isNumberMode) {
+            return numberLabels[id] ?: ""
+        }
+        val base = letterLabels[id] ?: ""
+        return if (isShifted) base.uppercase() else base
+    }
+
+    private fun refreshKeyLabels(rootView: View) {
+        for (id in keyIds) {
+            val btn = rootView.findViewById<Button?>(id) ?: continue
+            if (isNumberMode) {
+                btn.text = numberLabels[id] ?: ""
+            } else {
+                val base = letterLabels[id] ?: ""
+                btn.text = if (isShifted) base.uppercase() else base.uppercase()
+            }
+        }
     }
 
     private fun setupEmojis() {
@@ -166,9 +250,13 @@ class SinhalaKeyboardService : InputMethodService() {
         for (emo in emojiList) {
             val btn = Button(this).apply {
                 text = emo
-                textSize = 18f
-                setPadding(0, 0, 0, 0)
-                layoutParams = LinearLayout.LayoutParams(115, 105)
+                textSize = 20f
+                setBackgroundColor(Color.TRANSPARENT)
+                setPadding(6, 0, 6, 0)
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    104
+                )
                 setOnClickListener {
                     commitSinhala()
                     currentInputConnection?.commitText(emo, 1)
@@ -178,16 +266,21 @@ class SinhalaKeyboardService : InputMethodService() {
         }
     }
 
-    override fun onStartInputView(info: android.view.inputmethod.EditorInfo?, restarting: Boolean) {
+    override fun onStartInputView(info: EditorInfo?, restarting: Boolean) {
         super.onStartInputView(info, restarting)
-        refreshClipboardBox()
+        refreshClipboardBox(forceToggle = false)
     }
 
-    private fun refreshClipboardBox() {
+    private fun refreshClipboardBox(forceToggle: Boolean) {
         val clip = readClipboardText()
         if (!clip.isNullOrBlank()) {
             clipText?.text = "Copied: $clip"
-            clipBox?.visibility = View.VISIBLE
+            if (forceToggle) {
+                clipBox?.visibility =
+                    if (clipBox?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+            } else {
+                clipBox?.visibility = View.VISIBLE
+            }
         } else {
             clipBox?.visibility = View.GONE
         }
@@ -202,20 +295,18 @@ class SinhalaKeyboardService : InputMethodService() {
 
     private fun updateModeUi() {
         if (isEnglishMode) {
-            modeBtn?.text = "EN"
-            sinhalaStrip?.visibility = View.GONE
-            previewText?.text = "Hima Smart Board • English"
+            modeBtn?.text = "En"
+            spaceBtn?.text = "English"
+            previewText?.text = "English"
         } else {
             modeBtn?.text = "සිං"
-            if (emojiStrip?.visibility != View.VISIBLE) {
-                sinhalaStrip?.visibility = View.VISIBLE
-            }
-            previewText?.text = "Hima Smart Board • සිංහල (Singlish)"
+            spaceBtn?.text = "Hima Smart Board"
+            previewText?.text = "සිංහල • Singlish"
         }
     }
 
     private fun deleteOneStep() {
-        if (!isEnglishMode && buffer.isNotEmpty()) {
+        if (!isEnglishMode && !isNumberMode && buffer.isNotEmpty()) {
             buffer.deleteCharAt(buffer.length - 1)
             updateComposing()
         } else {
@@ -231,9 +322,9 @@ class SinhalaKeyboardService : InputMethodService() {
     private fun updateComposing() {
         val sinhala = convertSinglish(buffer.toString())
         previewText?.text = if (buffer.isEmpty()) {
-            "Hima Smart Board • සිංහල (Singlish)"
+            "සිංහල • Singlish"
         } else {
-            "${buffer}  →  $sinhala"
+            "${buffer} → $sinhala"
         }
         currentInputConnection?.setComposingText(sinhala, 1)
     }
@@ -244,7 +335,7 @@ class SinhalaKeyboardService : InputMethodService() {
             currentInputConnection?.commitText(sinhala, 1)
             buffer.clear()
             if (!isEnglishMode) {
-                previewText?.text = "Hima Smart Board • සිංහල (Singlish)"
+                previewText?.text = "සිංහල • Singlish"
             }
         }
     }
