@@ -1,19 +1,48 @@
 package com.hima.smartboard
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.inputmethodservice.InputMethodService
+import android.os.Handler
+import android.os.Looper
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
+import android.widget.HorizontalScrollView
+import android.widget.LinearLayout
 import android.widget.TextView
 
 class SinhalaKeyboardService : InputMethodService() {
 
     private val buffer = StringBuilder()
     private var previewText: TextView? = null
+    private var modeBtn: Button? = null
+    private var clipBox: LinearLayout? = null
+    private var clipText: TextView? = null
+    private var sinhalaStrip: HorizontalScrollView? = null
+    private var emojiStrip: HorizontalScrollView? = null
+
+    private var isEnglishMode = false
+    private val repeatHandler = Handler(Looper.getMainLooper())
+    private var isDeletingHeld = false
+
+    private val deleteRepeatRunnable = object : Runnable {
+        override fun run() {
+            if (!isDeletingHeld) return
+            deleteOneStep()
+            repeatHandler.postDelayed(this, 65L)
+        }
+    }
 
     override fun onCreateInputView(): View {
         val view = layoutInflater.inflate(R.layout.keyboard_view, null)
         previewText = view.findViewById(R.id.tvPreview)
+        modeBtn = view.findViewById(R.id.btnMode)
+        clipBox = view.findViewById(R.id.clipBox)
+        clipText = view.findViewById(R.id.tvClipText)
+        sinhalaStrip = view.findViewById(R.id.sinhalaStrip)
+        emojiStrip = view.findViewById(R.id.emojiStrip)
 
         val keyMap = mapOf(
             R.id.btnQ to "q", R.id.btnW to "w", R.id.btnE to "e", R.id.btnR to "r",
@@ -27,16 +56,89 @@ class SinhalaKeyboardService : InputMethodService() {
 
         for ((id, letter) in keyMap) {
             view.findViewById<Button?>(id)?.setOnClickListener {
-                appendChar(letter)
+                if (isEnglishMode) {
+                    currentInputConnection?.commitText(letter, 1)
+                } else {
+                    appendChar(letter)
+                }
             }
         }
 
-        view.findViewById<Button?>(R.id.btnDel)?.setOnClickListener {
-            if (buffer.isNotEmpty()) {
-                buffer.deleteCharAt(buffer.length - 1)
-                updateComposing()
-            } else {
-                currentInputConnection?.deleteSurroundingText(1, 0)
+        // Mode switch: Sinhala (Singlish) <-> English
+        modeBtn?.setOnClickListener {
+            if (!isEnglishMode) {
+                commitSinhala()
+            }
+            isEnglishMode = !isEnglishMode
+            updateModeUi()
+        }
+
+        // Sinhala Pillam buttons
+        val pillamMap = mapOf(
+            R.id.btnPillaHal to "්",
+            R.id.btnPillaAela to "ා",
+            R.id.btnPillaKetiIs to "ි",
+            R.id.btnPillaDeergaIs to "ී",
+            R.id.btnPillaKetiPa to "ු",
+            R.id.btnPillaDeergaPa to "ූ",
+            R.id.btnPillaKombu to "ෙ",
+            R.id.btnPillaDigaKombu to "ේ",
+            R.id.btnPillaKombuHaa to "ො",
+            R.id.btnPillaDigaKombuHaa to "ෝ",
+            R.id.btnBindu to "ං",
+            R.id.btnVisarga to "ඃ"
+        )
+        for ((id, pillam) in pillamMap) {
+            view.findViewById<Button?>(id)?.setOnClickListener {
+                commitSinhala()
+                currentInputConnection?.commitText(pillam, 1)
+            }
+        }
+
+        // Emoji strip toggle & buttons
+        view.findViewById<Button?>(R.id.btnEmoji)?.setOnClickListener {
+            val showingEmoji = emojiStrip?.visibility == View.VISIBLE
+            emojiStrip?.visibility = if (showingEmoji) View.GONE else View.VISIBLE
+            sinhalaStrip?.visibility = if (!showingEmoji || isEnglishMode) View.GONE else View.VISIBLE
+        }
+
+        val emojiMap = mapOf(
+            R.id.emo1 to "😊", R.id.emo2 to "😂", R.id.emo3 to "❤️", R.id.emo4 to "🙏",
+            R.id.emo5 to "🔥", R.id.emo6 to "👍", R.id.emo7 to "🥺", R.id.emo8 to "✨",
+            R.id.emo9 to "📸", R.id.emo10 to "🎉"
+        )
+        for ((id, emo) in emojiMap) {
+            view.findViewById<Button?>(id)?.setOnClickListener {
+                commitSinhala()
+                currentInputConnection?.commitText(emo, 1)
+            }
+        }
+
+        // Clipboard paste button
+        view.findViewById<Button?>(R.id.btnPasteClip)?.setOnClickListener {
+            val clip = readClipboardText()
+            if (!clip.isNullOrEmpty()) {
+                commitSinhala()
+                currentInputConnection?.commitText(clip, 1)
+            }
+        }
+
+        // Delete button: single tap + hold to continuously delete
+        view.findViewById<Button?>(R.id.btnDel)?.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    isDeletingHeld = true
+                    deleteOneStep()
+                    repeatHandler.removeCallbacks(deleteRepeatRunnable)
+                    repeatHandler.postDelayed(deleteRepeatRunnable, 350L)
+                    true
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    isDeletingHeld = false
+                    repeatHandler.removeCallbacks(deleteRepeatRunnable)
+                    true
+                }
+                else -> false
             }
         }
 
@@ -50,7 +152,54 @@ class SinhalaKeyboardService : InputMethodService() {
             currentInputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
         }
 
+        updateModeUi()
+        refreshClipboardBox()
         return view
+    }
+
+    override fun onStartInputView(info: android.view.inputmethod.EditorInfo?, restarting: Boolean) {
+        super.onStartInputView(info, restarting)
+        refreshClipboardBox()
+    }
+
+    private fun refreshClipboardBox() {
+        val clip = readClipboardText()
+        if (!clip.isNullOrBlank()) {
+            clipText?.text = "Copied: $clip"
+            clipBox?.visibility = View.VISIBLE
+        } else {
+            clipBox?.visibility = View.GONE
+        }
+    }
+
+    private fun readClipboardText(): String? {
+        val cm = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return null
+        if (!cm.hasPrimaryClip()) return null
+        val item = cm.primaryClip?.getItemAt(0)
+        return item?.coerceToText(this)?.toString()
+    }
+
+    private fun updateModeUi() {
+        if (isEnglishMode) {
+            modeBtn?.text = "EN"
+            sinhalaStrip?.visibility = View.GONE
+            previewText?.text = "Hima Smart Board • English"
+        } else {
+            modeBtn?.text = "සිං"
+            if (emojiStrip?.visibility != View.VISIBLE) {
+                sinhalaStrip?.visibility = View.VISIBLE
+            }
+            previewText?.text = "Hima Smart Board • සිංහල (Singlish)"
+        }
+    }
+
+    private fun deleteOneStep() {
+        if (!isEnglishMode && buffer.isNotEmpty()) {
+            buffer.deleteCharAt(buffer.length - 1)
+            updateComposing()
+        } else {
+            currentInputConnection?.deleteSurroundingText(1, 0)
+        }
     }
 
     private fun appendChar(c: String) {
@@ -61,7 +210,7 @@ class SinhalaKeyboardService : InputMethodService() {
     private fun updateComposing() {
         val sinhala = convertSinglish(buffer.toString())
         previewText?.text = if (buffer.isEmpty()) {
-            "Hima Smart Board • Singlish -> සිංහල"
+            "Hima Smart Board • සිංහල (Singlish)"
         } else {
             "${buffer}  →  $sinhala"
         }
@@ -73,7 +222,9 @@ class SinhalaKeyboardService : InputMethodService() {
             val sinhala = convertSinglish(buffer.toString())
             currentInputConnection?.commitText(sinhala, 1)
             buffer.clear()
-            previewText?.text = "Hima Smart Board • Singlish -> සිංහල"
+            if (!isEnglishMode) {
+                previewText?.text = "Hima Smart Board • සිංහල (Singlish)"
+            }
         }
     }
 
