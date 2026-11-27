@@ -22,10 +22,27 @@ class SinhalaKeyboardService : InputMethodService() {
     private var clipText: TextView? = null
     private var sinhalaStrip: HorizontalScrollView? = null
     private var emojiStrip: HorizontalScrollView? = null
+    private var emojiContainer: LinearLayout? = null
 
     private var isEnglishMode = false
     private val repeatHandler = Handler(Looper.getMainLooper())
     private var isDeletingHeld = false
+
+    private val emojiList = listOf(
+        "😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "😉",
+        "😊", "😇", "🥰", "😍", "🤩", "😘", "😗", "😋", "😛", "😜",
+        "🤪", "🤗", "🤭", "🤫", "🤔", "😐", "😑", "😶", "😏", "😒",
+        "🙄", "😬", "😔", "😪", "🤤", "😴", "😷", "🤒", "🤕", "🤢",
+        "🤮", "🥵", "🥶", "🥳", "😎", "🤓", "😕", "😟", "🙁", "☹️",
+        "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😢",
+        "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤",
+        "😡", "😠", "🤬", "👍", "👎", "👏", "🙌", "👐", "🤝", "🙏",
+        "✌️", "🤞", "🤟", "🤘", "👌", "🤏", "👈", "👉", "👆", "👇",
+        "☝️", "✋", "🤚", "🖐️", "🖖", "👋", "🤙", "💪", "❤️", "🧡",
+        "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❣️", "💕",
+        "💞", "💓", "💗", "💖", "💘", "💝", "🔥", "✨", "🌟", "💫",
+        "🎉", "🎊", "🎂", "🎁", "📸", "🎥", "🎶", "🎵", "💯", "✅"
+    )
 
     private val deleteRepeatRunnable = object : Runnable {
         override fun run() {
@@ -43,6 +60,9 @@ class SinhalaKeyboardService : InputMethodService() {
         clipText = view.findViewById(R.id.tvClipText)
         sinhalaStrip = view.findViewById(R.id.sinhalaStrip)
         emojiStrip = view.findViewById(R.id.emojiStrip)
+        emojiContainer = view.findViewById(R.id.emojiContainer)
+
+        setupEmojis()
 
         val keyMap = mapOf(
             R.id.btnQ to "q", R.id.btnW to "w", R.id.btnE to "e", R.id.btnR to "r",
@@ -64,7 +84,6 @@ class SinhalaKeyboardService : InputMethodService() {
             }
         }
 
-        // Mode switch: Sinhala (Singlish) <-> English
         modeBtn?.setOnClickListener {
             if (!isEnglishMode) {
                 commitSinhala()
@@ -73,7 +92,6 @@ class SinhalaKeyboardService : InputMethodService() {
             updateModeUi()
         }
 
-        // Sinhala Pillam buttons
         val pillamMap = mapOf(
             R.id.btnPillaHal to "්",
             R.id.btnPillaAela to "ා",
@@ -95,26 +113,12 @@ class SinhalaKeyboardService : InputMethodService() {
             }
         }
 
-        // Emoji strip toggle & buttons
         view.findViewById<Button?>(R.id.btnEmoji)?.setOnClickListener {
             val showingEmoji = emojiStrip?.visibility == View.VISIBLE
             emojiStrip?.visibility = if (showingEmoji) View.GONE else View.VISIBLE
             sinhalaStrip?.visibility = if (!showingEmoji || isEnglishMode) View.GONE else View.VISIBLE
         }
 
-        val emojiMap = mapOf(
-            R.id.emo1 to "😊", R.id.emo2 to "😂", R.id.emo3 to "❤️", R.id.emo4 to "🙏",
-            R.id.emo5 to "🔥", R.id.emo6 to "👍", R.id.emo7 to "🥺", R.id.emo8 to "✨",
-            R.id.emo9 to "📸", R.id.emo10 to "🎉"
-        )
-        for ((id, emo) in emojiMap) {
-            view.findViewById<Button?>(id)?.setOnClickListener {
-                commitSinhala()
-                currentInputConnection?.commitText(emo, 1)
-            }
-        }
-
-        // Clipboard paste button
         view.findViewById<Button?>(R.id.btnPasteClip)?.setOnClickListener {
             val clip = readClipboardText()
             if (!clip.isNullOrEmpty()) {
@@ -123,7 +127,6 @@ class SinhalaKeyboardService : InputMethodService() {
             }
         }
 
-        // Delete button: single tap + hold to continuously delete
         view.findViewById<Button?>(R.id.btnDel)?.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -155,6 +158,24 @@ class SinhalaKeyboardService : InputMethodService() {
         updateModeUi()
         refreshClipboardBox()
         return view
+    }
+
+    private fun setupEmojis() {
+        val container = emojiContainer ?: return
+        container.removeAllViews()
+        for (emo in emojiList) {
+            val btn = Button(this).apply {
+                text = emo
+                textSize = 18f
+                setPadding(0, 0, 0, 0)
+                layoutParams = LinearLayout.LayoutParams(115, 105)
+                setOnClickListener {
+                    commitSinhala()
+                    currentInputConnection?.commitText(emo, 1)
+                }
+            }
+            container.addView(btn)
+        }
     }
 
     override fun onStartInputView(info: android.view.inputmethod.EditorInfo?, restarting: Boolean) {
