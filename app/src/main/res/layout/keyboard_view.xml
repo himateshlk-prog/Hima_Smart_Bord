@@ -1,37 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#52525B">
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="#1C1C1E" />
-            <corners android:radius="10dp" />
-        </shape>
-    </item>
-</ripple>
-    <!-- Top Preview + Mode Button -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#000000"
+    android:orientation="vertical"
+    android:paddingHorizontal="4dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="8dp">
+
+    <!-- Top Quick Action Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingHorizontal="6dp">
+
+        <Button
+            android:id="@+id/btnMode"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/top_btn_bg"
+            android:padding="0dp"
+            android:text="සිං"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnEmoji"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/top_btn_bg"
+            android:padding="0dp"
+            android:text="☺️"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/btnPillamToggle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/top_btn_bg"
+            android:padding="0dp"
+            android:text="ා"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnClipToggle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/top_btn_bg"
+            android:padding="0dp"
+            android:text="📋"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tvPreview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:padding="4dp"
-            android:text="Hima Smart Board • සිංහල (Singlish)"
-            android:textColor="#E2E8F0"
-            android:textSize="15sp" />
-
-        <Button
-            android:id="@+id/btnMode"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:minWidth="72dp"
-            android:paddingHorizontal="8dp"
-            android:text="සිං / EN"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Hima Smart Board"
+            android:textColor="#A1A1AA"
             android:textSize="13sp" />
     </LinearLayout>
 
@@ -40,11 +77,12 @@
         android:id="@+id/clipBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:background="#1E2638"
+        android:layout_marginTop="5dp"
+        android:background="#1C1C1E"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="4dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="4dp"
         android:visibility="gone">
 
         <TextView
@@ -61,9 +99,11 @@
         <Button
             android:id="@+id/btnPasteClip"
             android:layout_width="wrap_content"
-            android:layout_height="34dp"
-            android:paddingHorizontal="8dp"
+            android:layout_height="32dp"
+            android:background="@drawable/space_bg"
+            android:paddingHorizontal="12dp"
             android:text="Paste"
+            android:textColor="#FFFFFF"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -72,43 +112,43 @@
         android:id="@+id/sinhalaStrip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:scrollbars="none">
+        android:layout_marginTop="5dp"
+        android:scrollbars="none"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button android:id="@+id/btnPillaHal" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="්" android:textSize="16sp" />
-            <Button android:id="@+id/btnPillaAela" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ා" android:textSize="16sp" />
-            <Button android:id="@+id/btnPillaKetiIs" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ි" android:textSize="16sp" />
-            <Button android:id="@+id/btnPillaDeergaIs" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ී" android:textSize="16sp" />
-            <Button android:id="@+id/btnPillaKetiPa" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ු" android:textSize="16sp" />
-            <Button android:id="@+id/btnPillaDeergaPa" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ූ" android:textSize="16sp" />
-            <Button android:id="@+id/btnPillaKombu" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ෙ" android:textSize="16sp" />
-            <Button android:id="@+id/btnPillaDigaKombu" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ේ" android:textSize="16sp" />
-            <Button android:id="@+id/btnPillaKombuHaa" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ො" android:textSize="16sp" />
-            <Button android:id="@+id/btnPillaDigaKombuHaa" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ෝ" android:textSize="16sp" />
-            <Button android:id="@+id/btnBindu" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ං" android:textSize="16sp" />
-            <Button android:id="@+id/btnVisarga" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ඃ" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaHal" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="්" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaAela" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ා" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaKetiIs" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ි" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaDeergaIs" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ී" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaKetiPa" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ු" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaDeergaPa" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ූ" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaKombu" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ෙ" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaDigaKombu" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ේ" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaKombuHaa" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ො" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaDigaKombuHaa" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ෝ" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnBindu" android:layout_width="42dp" android:layout_height="38dp" android:layout_marginEnd="4dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ං" android:textColor="#FFFFFF" android:textSize="16sp" />
+            <Button android:id="@+id/btnVisarga" android:layout_width="42dp" android:layout_height="38dp" android:background="@drawable/key_bg" android:padding="0dp" android:text="ඃ" android:textColor="#FFFFFF" android:textSize="16sp" />
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- Dynamic Emoji Strip (Populated in Kotlin with lots of emojis) -->
+    <!-- Emoji Strip -->
     <HorizontalScrollView
         android:id="@+id/emojiStrip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:background="#1B2232"
-        android:scrollbars="none"
-        android:visibility="gone">
+        android:layout_marginTop="6dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/emojiContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
@@ -116,62 +156,126 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:orientation="horizontal">
-        <Button android:id="@+id/btnQ" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="Q" android:textSize="17sp" />
-        <Button android:id="@+id/btnW" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="W" android:textSize="17sp" />
-        <Button android:id="@+id/btnE" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="E" android:textSize="17sp" />
-        <Button android:id="@+id/btnR" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="R" android:textSize="17sp" />
-        <Button android:id="@+id/btnT" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="T" android:textSize="17sp" />
-        <Button android:id="@+id/btnY" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="Y" android:textSize="17sp" />
-        <Button android:id="@+id/btnU" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="U" android:textSize="17sp" />
-        <Button android:id="@+id/btnI" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="I" android:textSize="17sp" />
-        <Button android:id="@+id/btnO" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="O" android:textSize="17sp" />
-        <Button android:id="@+id/btnP" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="P" android:textSize="17sp" />
+        <Button android:id="@+id/btnQ" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="Q" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnW" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="W" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnE" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="E" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnR" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="R" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnT" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="T" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnY" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="Y" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnU" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="U" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnI" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="I" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnO" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="O" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnP" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="P" android:textColor="#FFFFFF" android:textSize="19sp" />
     </LinearLayout>
 
     <!-- Row 2: A S D F G H J K L -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
-        <Button android:id="@+id/btnA" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="A" android:textSize="17sp" />
-        <Button android:id="@+id/btnS" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="S" android:textSize="17sp" />
-        <Button android:id="@+id/btnD" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="D" android:textSize="17sp" />
-        <Button android:id="@+id/btnF" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="F" android:textSize="17sp" />
-        <Button android:id="@+id/btnG" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="G" android:textSize="17sp" />
-        <Button android:id="@+id/btnH" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="H" android:textSize="17sp" />
-        <Button android:id="@+id/btnJ" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="J" android:textSize="17sp" />
-        <Button android:id="@+id/btnK" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="K" android:textSize="17sp" />
-        <Button android:id="@+id/btnL" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="L" android:textSize="17sp" />
+        <Button android:id="@+id/btnA" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="A" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnS" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="S" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnD" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="D" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnF" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="F" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnG" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="G" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnH" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="H" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnJ" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="J" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnK" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="K" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnL" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="L" android:textColor="#FFFFFF" android:textSize="19sp" />
     </LinearLayout>
 
-    <!-- Row 3: Z X C V B N M DEL -->
+    <!-- Row 3: SHIFT Z X C V B N M DEL -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
-        <Button android:id="@+id/btnZ" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="Z" android:textSize="17sp" />
-        <Button android:id="@+id/btnX" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="X" android:textSize="17sp" />
-        <Button android:id="@+id/btnC" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="C" android:textSize="17sp" />
-        <Button android:id="@+id/btnV" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="V" android:textSize="17sp" />
-        <Button android:id="@+id/btnB" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="B" android:textSize="17sp" />
-        <Button android:id="@+id/btnN" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="N" android:textSize="17sp" />
-        <Button android:id="@+id/btnM" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="M" android:textSize="17sp" />
-        <Button android:id="@+id/btnDel" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1.5" android:padding="0dp" android:text="DEL" android:textSize="14sp" />
+        <Button android:id="@+id/btnShift" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1.35" android:background="@drawable/key_bg" android:padding="0dp" android:text="⇧" android:textColor="#FFFFFF" android:textSize="18sp" />
+        <Button android:id="@+id/btnZ" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="Z" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnX" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="X" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnC" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="C" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnV" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="V" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnB" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="B" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnN" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="N" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnM" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1" android:background="@drawable/key_bg" android:padding="0dp" android:text="M" android:textColor="#FFFFFF" android:textSize="19sp" />
+        <Button android:id="@+id/btnDel" android:layout_width="0dp" android:layout_height="54dp" android:layout_marginHorizontal="2dp" android:layout_weight="1.35" android:background="@drawable/key_bg" android:padding="0dp" android:text="⌫" android:textColor="#FFFFFF" android:textSize="18sp" />
     </LinearLayout>
 
-    <!-- Row 4: EMOJI SPACE ENTER -->
+    <!-- Row 4: 123  GLOBE  ,  PILL-SPACE  .  ENTER -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="7dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
-        <Button android:id="@+id/btnEmoji" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="0.9" android:padding="0dp" android:text="😊" android:textSize="18sp" />
-        <Button android:id="@+id/btnSpace" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="2.5" android:text="SPACE" android:textSize="15sp" />
-        <Button android:id="@+id/btnEnter" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1.2" android:text="ENTER" android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnSym"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1.1"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:text="123"
+            android:textColor="#E4E4E7"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnGlobe"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1.0"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:text="🌐"
+            android:textColor="#E4E4E7"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/btnComma"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="0.8"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:text=","
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnSpace"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginHorizontal="6dp"
+            android:layout_weight="3.6"
+            android:background="@drawable/space_bg"
+            android:text="Hima Smart Board"
+            android:textColor="#E4E4E7"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnDot"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="0.8"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:text="."
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnEnter"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/top_btn_bg"
+            android:padding="0dp"
+            android:text="↵"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>
