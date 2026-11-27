@@ -21,19 +21,19 @@
             android:padding="4dp"
             android:text="Hima Smart Board • සිංහල (Singlish)"
             android:textColor="#E2E8F0"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/btnMode"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:minWidth="68dp"
+            android:layout_height="38dp"
+            android:minWidth="72dp"
             android:paddingHorizontal="8dp"
             android:text="සිං / EN"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
-    <!-- Copied Clipboard Box (Shows when text is copied) -->
+    <!-- Copied Clipboard Box -->
     <LinearLayout
         android:id="@+id/clipBox"
         android:layout_width="match_parent"
@@ -54,18 +54,18 @@
             android:maxLines="1"
             android:text=""
             android:textColor="#93C5FD"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/btnPasteClip"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_height="34dp"
             android:paddingHorizontal="8dp"
             android:text="Paste"
-            android:textSize="11sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
-    <!-- Sinhala Pillam & Quick Vowel Strip -->
+    <!-- Sinhala Pillam Strip -->
     <HorizontalScrollView
         android:id="@+id/sinhalaStrip"
         android:layout_width="match_parent"
@@ -78,22 +78,22 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button android:id="@+id/btnPillaHal" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="්" android:textSize="14sp" />
-            <Button android:id="@+id/btnPillaAela" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ා" android:textSize="14sp" />
-            <Button android:id="@+id/btnPillaKetiIs" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ි" android:textSize="14sp" />
-            <Button android:id="@+id/btnPillaDeergaIs" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ී" android:textSize="14sp" />
-            <Button android:id="@+id/btnPillaKetiPa" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ු" android:textSize="14sp" />
-            <Button android:id="@+id/btnPillaDeergaPa" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ූ" android:textSize="14sp" />
-            <Button android:id="@+id/btnPillaKombu" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ෙ" android:textSize="14sp" />
-            <Button android:id="@+id/btnPillaDigaKombu" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ේ" android:textSize="14sp" />
-            <Button android:id="@+id/btnPillaKombuHaa" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ො" android:textSize="14sp" />
-            <Button android:id="@+id/btnPillaDigaKombuHaa" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ෝ" android:textSize="14sp" />
-            <Button android:id="@+id/btnBindu" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ං" android:textSize="14sp" />
-            <Button android:id="@+id/btnVisarga" android:layout_width="38dp" android:layout_height="36dp" android:padding="0dp" android:text="ඃ" android:textSize="14sp" />
+            <Button android:id="@+id/btnPillaHal" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="්" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaAela" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ා" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaKetiIs" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ි" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaDeergaIs" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ී" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaKetiPa" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ු" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaDeergaPa" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ූ" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaKombu" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ෙ" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaDigaKombu" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ේ" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaKombuHaa" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ො" android:textSize="16sp" />
+            <Button android:id="@+id/btnPillaDigaKombuHaa" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ෝ" android:textSize="16sp" />
+            <Button android:id="@+id/btnBindu" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ං" android:textSize="16sp" />
+            <Button android:id="@+id/btnVisarga" android:layout_width="40dp" android:layout_height="38dp" android:padding="0dp" android:text="ඃ" android:textSize="16sp" />
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- Emoji Strip (Toggled by Emoji Button) -->
+    <!-- Dynamic Emoji Strip (Populated in Kotlin with lots of emojis) -->
     <HorizontalScrollView
         android:id="@+id/emojiStrip"
         android:layout_width="match_parent"
@@ -104,21 +104,10 @@
         android:visibility="gone">
 
         <LinearLayout
+            android:id="@+id/emojiContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button android:id="@+id/emo1" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="😊" android:textSize="16sp" />
-            <Button android:id="@+id/emo2" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="😂" android:textSize="16sp" />
-            <Button android:id="@+id/emo3" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="❤️" android:textSize="16sp" />
-            <Button android:id="@+id/emo4" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="🙏" android:textSize="16sp" />
-            <Button android:id="@+id/emo5" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="🔥" android:textSize="16sp" />
-            <Button android:id="@+id/emo6" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="👍" android:textSize="16sp" />
-            <Button android:id="@+id/emo7" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="🥺" android:textSize="16sp" />
-            <Button android:id="@+id/emo8" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="✨" android:textSize="16sp" />
-            <Button android:id="@+id/emo9" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="📸" android:textSize="16sp" />
-            <Button android:id="@+id/emo10" android:layout_width="44dp" android:layout_height="38dp" android:padding="0dp" android:text="🎉" android:textSize="16sp" />
-        </LinearLayout>
+            android:orientation="horizontal" />
     </HorizontalScrollView>
 
     <!-- Row 1: Q W E R T Y U I O P -->
@@ -127,16 +116,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="horizontal">
-        <Button android:id="@+id/btnQ" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="Q" android:textSize="15sp" />
-        <Button android:id="@+id/btnW" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="W" android:textSize="15sp" />
-        <Button android:id="@+id/btnE" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="E" android:textSize="15sp" />
-        <Button android:id="@+id/btnR" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="R" android:textSize="15sp" />
-        <Button android:id="@+id/btnT" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="T" android:textSize="15sp" />
-        <Button android:id="@+id/btnY" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="Y" android:textSize="15sp" />
-        <Button android:id="@+id/btnU" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="U" android:textSize="15sp" />
-        <Button android:id="@+id/btnI" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="I" android:textSize="15sp" />
-        <Button android:id="@+id/btnO" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="O" android:textSize="15sp" />
-        <Button android:id="@+id/btnP" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="P" android:textSize="15sp" />
+        <Button android:id="@+id/btnQ" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="Q" android:textSize="17sp" />
+        <Button android:id="@+id/btnW" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="W" android:textSize="17sp" />
+        <Button android:id="@+id/btnE" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="E" android:textSize="17sp" />
+        <Button android:id="@+id/btnR" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="R" android:textSize="17sp" />
+        <Button android:id="@+id/btnT" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="T" android:textSize="17sp" />
+        <Button android:id="@+id/btnY" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="Y" android:textSize="17sp" />
+        <Button android:id="@+id/btnU" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="U" android:textSize="17sp" />
+        <Button android:id="@+id/btnI" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="I" android:textSize="17sp" />
+        <Button android:id="@+id/btnO" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="O" android:textSize="17sp" />
+        <Button android:id="@+id/btnP" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="P" android:textSize="17sp" />
     </LinearLayout>
 
     <!-- Row 2: A S D F G H J K L -->
@@ -145,15 +134,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="horizontal">
-        <Button android:id="@+id/btnA" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="A" android:textSize="15sp" />
-        <Button android:id="@+id/btnS" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="S" android:textSize="15sp" />
-        <Button android:id="@+id/btnD" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="D" android:textSize="15sp" />
-        <Button android:id="@+id/btnF" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="F" android:textSize="15sp" />
-        <Button android:id="@+id/btnG" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="G" android:textSize="15sp" />
-        <Button android:id="@+id/btnH" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="H" android:textSize="15sp" />
-        <Button android:id="@+id/btnJ" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="J" android:textSize="15sp" />
-        <Button android:id="@+id/btnK" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="K" android:textSize="15sp" />
-        <Button android:id="@+id/btnL" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="L" android:textSize="15sp" />
+        <Button android:id="@+id/btnA" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="A" android:textSize="17sp" />
+        <Button android:id="@+id/btnS" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="S" android:textSize="17sp" />
+        <Button android:id="@+id/btnD" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="D" android:textSize="17sp" />
+        <Button android:id="@+id/btnF" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="F" android:textSize="17sp" />
+        <Button android:id="@+id/btnG" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="G" android:textSize="17sp" />
+        <Button android:id="@+id/btnH" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="H" android:textSize="17sp" />
+        <Button android:id="@+id/btnJ" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="J" android:textSize="17sp" />
+        <Button android:id="@+id/btnK" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="K" android:textSize="17sp" />
+        <Button android:id="@+id/btnL" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="L" android:textSize="17sp" />
     </LinearLayout>
 
     <!-- Row 3: Z X C V B N M DEL -->
@@ -162,14 +151,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="horizontal">
-        <Button android:id="@+id/btnZ" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="Z" android:textSize="15sp" />
-        <Button android:id="@+id/btnX" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="X" android:textSize="15sp" />
-        <Button android:id="@+id/btnC" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="C" android:textSize="15sp" />
-        <Button android:id="@+id/btnV" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="V" android:textSize="15sp" />
-        <Button android:id="@+id/btnB" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="B" android:textSize="15sp" />
-        <Button android:id="@+id/btnN" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="N" android:textSize="15sp" />
-        <Button android:id="@+id/btnM" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:padding="0dp" android:text="M" android:textSize="15sp" />
-        <Button android:id="@+id/btnDel" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1.5" android:padding="0dp" android:text="DEL" android:textSize="13sp" />
+        <Button android:id="@+id/btnZ" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="Z" android:textSize="17sp" />
+        <Button android:id="@+id/btnX" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="X" android:textSize="17sp" />
+        <Button android:id="@+id/btnC" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="C" android:textSize="17sp" />
+        <Button android:id="@+id/btnV" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="V" android:textSize="17sp" />
+        <Button android:id="@+id/btnB" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="B" android:textSize="17sp" />
+        <Button android:id="@+id/btnN" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="N" android:textSize="17sp" />
+        <Button android:id="@+id/btnM" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:padding="0dp" android:text="M" android:textSize="17sp" />
+        <Button android:id="@+id/btnDel" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1.5" android:padding="0dp" android:text="DEL" android:textSize="14sp" />
     </LinearLayout>
 
     <!-- Row 4: EMOJI SPACE ENTER -->
@@ -178,9 +167,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="horizontal">
-        <Button android:id="@+id/btnEmoji" android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="0.9" android:padding="0dp" android:text="😊" android:textSize="16sp" />
-        <Button android:id="@+id/btnSpace" android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="2.5" android:text="SPACE" android:textSize="14sp" />
-        <Button android:id="@+id/btnEnter" android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1.2" android:text="ENTER" android:textSize="14sp" />
+        <Button android:id="@+id/btnEmoji" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="0.9" android:padding="0dp" android:text="😊" android:textSize="18sp" />
+        <Button android:id="@+id/btnSpace" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="2.5" android:text="SPACE" android:textSize="15sp" />
+        <Button android:id="@+id/btnEnter" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1.2" android:text="ENTER" android:textSize="15sp" />
     </LinearLayout>
 
 </LinearLayout>
