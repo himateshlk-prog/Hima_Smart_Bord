@@ -5,7 +5,7 @@
         android:allowBackup="true"
         android:label="Hima Smart Board"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
 
         <service
             android:name=".SinhalaKeyboardService"
@@ -22,68 +22,3 @@
     </application>
 
 </manifest>
-    <TextView
-        android:id="@+id/tvPreview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:text="Hima Smart Board • Singlish -> සිංහල"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnK"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="K" />
-
-        <Button
-            android:id="@+id/btnA"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="A" />
-
-        <Button
-            android:id="@+id/btnM"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="M" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnDel"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="DEL" />
-
-        <Button
-            android:id="@+id/btnSpace"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="2"
-            android:text="SPACE" />
-
-        <Button
-            android:id="@+id/btnEnter"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="ENTER" />
-    </LinearLayout>
-
-</LinearLayout>
